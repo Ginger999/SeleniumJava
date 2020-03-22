@@ -23,19 +23,19 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
  *
  * @author Ginger
  */
-public class MyFirstTest {
+public class Test_02_Login {
 
     public WebDriver driver;
     public WebDriverWait wait;
     public static String website;
 
-    public MyFirstTest() {
+    public Test_02_Login() {
     }
 
     @BeforeClass
     public static void setUpClass() {
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        website = "https://www.google.com";
+        website = "http://localhost:8080/litecart/admin";
     }
 
     @AfterClass
@@ -45,7 +45,7 @@ public class MyFirstTest {
     @Before
     public void setUp() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.MILLISECONDS);
         wait = new WebDriverWait(driver, 10);
     }
 
@@ -56,11 +56,19 @@ public class MyFirstTest {
     }
 
     @Test
-    public void OpenBrowser() {
-        System.out.println(website);
+    public void TestLinkClick() {
         driver.get(website);
-        driver.findElement(By.name("q")).sendKeys("webdriver");
-        driver.findElement(By.name("btnK")).click();
-        wait.until(titleIs("webdriver - Поиск в Google"));
+        driver.findElement(By.xpath("//*[@id=\"box-login\"]/div/a/img")).click();
+        wait.until(titleIs("Online Store | My Store"));
+    }
+
+    @Test
+    public void TestLogin() {
+        driver.get(website);
+        driver.findElement(By.name("username")).sendKeys("admin");
+        driver.findElement(By.name("password")).sendKeys("admin");
+        driver.findElement(By.name("remember_me")).click();
+        driver.findElement(By.name("login")).click();
+        wait.until(titleIs("My Store"));
     }
 }
