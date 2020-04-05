@@ -90,19 +90,29 @@ public class Test_02_Login {
         System.out.println(MenuItems_01_Count);
 
         for (int i = 0; i < MenuItems_01_Count; i++) {
-            System.out.print(String.valueOf(i+1) + ": " + MenuItems_01.get(i).getText() + " -> ");
+            System.out.print(String.valueOf(i + 1) + ": " + MenuItems_01.get(i).getText() + " = ");
             MenuItems_01.get(i).click();
-            
+
             //Find Menu Items of the second level
             List<WebElement> MenuItems_02 = driver.findElements(By.cssSelector(cssMenuLevel_02));
             int MenuItems_02_Count = MenuItems_02.size();
             System.out.println(MenuItems_02_Count);
-            
+
             for (int j = 0; j < MenuItems_02_Count; j++) {
                 System.out.print(" | " + MenuItems_02.get(j).getText());
                 MenuItems_02.get(j).click();
+                List<WebElement> Headers = driver.findElements(By.cssSelector("h1"));
+                if (Headers.size() > 0) {
+                    for (int h = 0; h < Headers.size(); h++) {
+                        System.out.println(": h1 -> " + Headers.get(h).getText());
+                    }
+                }
+                else {
+                  System.out.println(": h1 -> no header");  
+                }
                 MenuItems_02 = driver.findElements(By.cssSelector(cssMenuLevel_02));
             }
+
             MenuItems_01 = driver.findElements(By.cssSelector(cssMenuLevel_01));
         }
     }
