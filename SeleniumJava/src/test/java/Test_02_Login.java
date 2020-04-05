@@ -71,6 +71,7 @@ public class Test_02_Login {
     public void TestMenu() {
         Actions actions = new Actions(driver);
 
+        //Login
         driver.get(website);
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
@@ -78,19 +79,31 @@ public class Test_02_Login {
         driver.findElement(By.name("login")).click();
         wait.until(titleIs("My Store"));
 
-        List<WebElement> MenuItems = driver.findElements(By.cssSelector("ul#box-apps-menu li#app-"));
-        System.out.println(MenuItems.size());
-        int MenuItemsCount = MenuItems.size();
-        for (int i = 1; i < MenuItemsCount; i++) {
-            String si = String.valueOf(i);
-            String cssSelector = "ul#box-apps-menu li:nth-child(" + si + ")";
-            System.out.print(si + ": " + cssSelector + " | ");
-            //cssSelector = "ul#box-apps-menu li:nth-child(1)"
-            //WebElement MenuItem = driver.findElement(By.cssSelector(cssSelector));
-            WebElement MenuItem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssSelector)));
-            actions.moveToElement(MenuItem).build().perform();
-            //MenuItem.click();
-            System.out.println(MenuItem.getText());
+        //CSS Selectors
+        String cssMenuLevel_01 = "ul#box-apps-menu li#app-";
+        String cssMenuLevel_02 = "ul#box-apps-menu li#app- ul.docs span.name";
+
+        //Find Menu Items of the first level
+        List<WebElement> MenuItems_01 = driver.findElements(By.cssSelector(cssMenuLevel_01));
+        int MenuItems_01_Count = MenuItems_01.size();
+
+        System.out.println(MenuItems_01_Count);
+
+        for (int i = 0; i < MenuItems_01_Count; i++) {
+            System.out.print(String.valueOf(i+1) + ": " + MenuItems_01.get(i).getText() + " -> ");
+            MenuItems_01.get(i).click();
+            
+            //Find Menu Items of the second level
+            List<WebElement> MenuItems_02 = driver.findElements(By.cssSelector(cssMenuLevel_02));
+            int MenuItems_02_Count = MenuItems_02.size();
+            System.out.println(MenuItems_02_Count);
+            
+            for (int j = 0; j < MenuItems_02_Count; j++) {
+                System.out.print(" | " + MenuItems_02.get(j).getText());
+                MenuItems_02.get(j).click();
+                MenuItems_02 = driver.findElements(By.cssSelector(cssMenuLevel_02));
+            }
+            MenuItems_01 = driver.findElements(By.cssSelector(cssMenuLevel_01));
         }
     }
 }
