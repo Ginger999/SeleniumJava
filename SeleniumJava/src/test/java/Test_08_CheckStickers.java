@@ -66,7 +66,7 @@ public class Test_08_CheckStickers {
         wait.until(titleIs("Online Store | My Store"));
 
         //CSS selectors
-        String cssProducts = "li.product.column.shadow.hover-light";
+        String cssProducts = ".product";
         String cssStickers = "div.sticker";
 
         //find products
@@ -77,7 +77,6 @@ public class Test_08_CheckStickers {
         for (int i = 0; i < Products_Count; i++) {
             //find stickers
             List<WebElement> Stickers = Products.get(i).findElements(By.cssSelector(cssStickers));
-
             assertEquals(1, Stickers.size());
         }
     }
