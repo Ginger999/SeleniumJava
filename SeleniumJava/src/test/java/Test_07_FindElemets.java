@@ -90,7 +90,7 @@ public class Test_07_FindElemets {
             for (int j = 0; j < MenuItems_02_Count; j++) {
                 System.out.print(" | " + MenuItems_02.get(j).getText());
                 MenuItems_02.get(j).click();
-                
+
                 //find and print header 
                 List<WebElement> Headers = driver.findElements(By.cssSelector(cssHeader));
                 if (Headers.size() > 0) {

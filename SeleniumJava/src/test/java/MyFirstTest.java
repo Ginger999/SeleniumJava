@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +17,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
+
+import org.openqa.selenium.HasCapabilities;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+
 
 /**
  *
@@ -44,7 +48,12 @@ public class MyFirstTest {
 
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setCapability("unexpectedAlertBehaviour", "dismiss");
+        driver = new ChromeDriver(caps);
+        //driver = new ChromeDriver();
+        System.out.println(((HasCapabilities) driver).getCapabilities());
+        
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
         wait = new WebDriverWait(driver, 10);
     }

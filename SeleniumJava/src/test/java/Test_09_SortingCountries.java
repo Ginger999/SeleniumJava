@@ -76,11 +76,15 @@ public class Test_09_SortingCountries {
 
         //CSS selectors
         String cssContries = "tr.row > td > a:not([title=Edit])[href*='country']";
+        String cssZones = "tr.row > td:nth-child(6)";
 
+        //xPath
+        //label[contains(@class, 'error') and contains(@class, 'fatal') and @for='email']
+        String xPathContries = "tr[contains(@class, 'row')/td]";
+        
         //find Contries
         List<WebElement> Contries = driver.findElements(By.cssSelector(cssContries));
         int Contries_Count = Contries.size();
-
         //scan Contries
         List<String> displayedNames = new ArrayList();
         List<String> SortedNames = new ArrayList();
@@ -91,8 +95,8 @@ public class Test_09_SortingCountries {
             SortedNames.add(getData);
 
             System.out.println(String.valueOf(i + 1) + ": " + getData);
-
         }
+        // check sorting contries
         List<String> sortingOperation = displayedNames;
         Collections.sort(sortingOperation);
         assertEquals(SortedNames, sortingOperation);

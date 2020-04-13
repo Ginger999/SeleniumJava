@@ -106,9 +106,8 @@ public class Test_02_Login {
                     for (int h = 0; h < Headers.size(); h++) {
                         System.out.println(": h1 -> " + Headers.get(h).getText());
                     }
-                }
-                else {
-                  System.out.println(": h1 -> no header");  
+                } else {
+                    System.out.println(": h1 -> no header");
                 }
                 MenuItems_02 = driver.findElements(By.cssSelector(cssMenuLevel_02));
             }
